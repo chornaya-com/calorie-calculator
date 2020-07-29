@@ -22,30 +22,59 @@ const ItemControllerModule = (function () {
         totalCalories: 0
     }
 
-    // log data
+    // Public Methods
     function logData() {
         return data;
     }
 
+    function getItems() {
+        return data.items;
+    }
+
     return {
-        logData
+        logData,
+        getItems
     }
 
 })();
-
 
 
 // UI Controller
 const UiControllerModule = (function () {
 
-})();
+    const uiSelectors = {
+        itemList: 'item-list'
+    };
 
+    function populateItemList(items) {
+        let html = '';
+        items.forEach((item) => {
+            html += `<li id="item-${item.id}" class="collection-item">
+                        <strong>${item.name}:</strong> ${item.calories} kcal
+                        <a href="#" class="secondary-content">
+                            <i class="edit-item fa fa-pencil"></i>
+                        </a>
+                    </li>`
+        });
+
+        document.getElementById(uiSelectors.itemList).innerHTML = html;
+    }
+
+    return {
+        populateItemList
+    }
+
+})();
 
 
 // App Controller
 const AppModule = (function (ItemControllerModule, UiControllerModule) {
     function init() {
-        console.log('Initializing app...');
+        // fetch items from data structure
+        const items = ItemControllerModule.getItems();
+
+        // populate list with items
+        UiControllerModule.populateItemList(items);
     }
 
     return {
