@@ -8,16 +8,11 @@ const ItemControllerModule = (function () {
     }
 
     const data = {
-        items: [
-            {id: 0, name: 'Steak', calories: 1200},
-            {id: 1, name: 'Ice Cream', calories: 400},
-            {id: 2, name: 'Coffee', calories: 5}
-        ],
+        items: [],
         currentItem: null,
         totalCalories: 0
     }
 
-    // Public Methods
     function logData() {
         return data;
     }

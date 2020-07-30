@@ -32,9 +32,33 @@ const UiControllerModule = (function () {
         return uiSelectors;
     }
 
+    function addListItem(item) {
+        document.getElementById(uiSelectors.itemList).style.display = 'block';
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        li.id = `item-${item.id}`;
+        li.innerHTML = `<strong>${item.name}:</strong> ${item.calories} kcal
+                        <a href="#" class="secondary-content">
+                            <i class="edit-item fa fa-pencil"></i>
+                        </a>`;
+        document.getElementById(uiSelectors.itemList).insertAdjacentElement('beforeend', li);
+    }
+
+    function clearInput() {
+        document.getElementById(uiSelectors.itemNameInput).value = '';
+        document.getElementById(uiSelectors.itemCaloriesInput).value = '';
+    }
+
+    function hideList() {
+        document.getElementById(uiSelectors.itemList).style.display = 'none';
+    }
+
     return {
         populateItemList,
         getSelectors,
-        getItemInput
+        getItemInput,
+        addListItem,
+        clearInput,
+        hideList
     }
 })();
