@@ -13,6 +13,9 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
             const newItem = ItemControllerModule.addItem(input.name, input.calories);
             UiControllerModule.addListItem(newItem);
             UiControllerModule.clearInput();
+
+            const totalCalories = ItemControllerModule.getTotalCalories();
+            UiControllerModule.showTotalCalories(totalCalories);
         }
     }
 
@@ -24,6 +27,9 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
         } else {
             UiControllerModule.populateItemList(items);
         }
+
+        const totalCalories = ItemControllerModule.getTotalCalories();
+        UiControllerModule.showTotalCalories(totalCalories);
 
         loadEventListeners();
     }

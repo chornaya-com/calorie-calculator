@@ -4,7 +4,8 @@ const UiControllerModule = (function () {
         itemList: 'item-list',
         addBtn: '.add-btn',
         itemNameInput: 'item-name',
-        itemCaloriesInput: 'item-calories'
+        itemCaloriesInput: 'item-calories',
+        totalCalories: '.total-calories'
     };
 
     function populateItemList(items) {
@@ -53,12 +54,17 @@ const UiControllerModule = (function () {
         document.getElementById(uiSelectors.itemList).style.display = 'none';
     }
 
+    function showTotalCalories(totalCalories) {
+        document.querySelector(uiSelectors.totalCalories).textContent = totalCalories;
+    }
+
     return {
         populateItemList,
         getSelectors,
         getItemInput,
         addListItem,
         clearInput,
-        hideList
+        hideList,
+        showTotalCalories
     }
 })();

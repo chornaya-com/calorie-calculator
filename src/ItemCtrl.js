@@ -35,10 +35,22 @@ const ItemControllerModule = (function () {
         return newItem;
     }
 
+    function getTotalCalories() {
+        let total = 0;
+        data.items.forEach((item) => {
+            total += item.calories;
+        });
+
+        data.totalCalories = total;
+
+        return data.totalCalories;
+    }
+
     return {
         logData,
         getItems,
-        addItem
+        addItem,
+        getTotalCalories
     }
 
 })();
