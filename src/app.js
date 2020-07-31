@@ -2,6 +2,7 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
     function loadEventListeners() {
         const uiSelectors = UiControllerModule.getSelectors();
         document.querySelector(uiSelectors.addBtn).addEventListener('click', itemAddSubmit);
+        document.getElementById(uiSelectors.itemList).addEventListener('click', itemUpdateSubmit);
     }
 
     function itemAddSubmit(event) {
@@ -19,7 +20,24 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
         }
     }
 
+    function itemUpdateSubmit(event) {
+        event.preventDefault();
+
+        if (event.target.classList.contains('edit-item')) {
+            const listId = event.target.parentNode.parentNode.id;
+            const listIdArray = listId.split('-');
+            const id = parseInt(listIdArray[1]);
+            const itemToEdit = ItemControllerModule.getItemById(id);
+
+            ItemControllerModule.setCurrentItem(itemToEdit);
+
+            UiControllerModule.addItemToForm();
+        }
+    }
+
     function init() {
+        UiControllerModule.clearEditState();
+
         const items = ItemControllerModule.getItems();
 
         if (items.length === 0) {

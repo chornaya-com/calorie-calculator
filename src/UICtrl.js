@@ -3,6 +3,9 @@ const UiControllerModule = (function () {
     const uiSelectors = {
         itemList: 'item-list',
         addBtn: '.add-btn',
+        updateBtn: '.update-btn',
+        deleteBtn: '.delete-btn',
+        backBtn: '.back-btn',
         itemNameInput: 'item-name',
         itemCaloriesInput: 'item-calories',
         totalCalories: '.total-calories'
@@ -58,6 +61,27 @@ const UiControllerModule = (function () {
         document.querySelector(uiSelectors.totalCalories).textContent = totalCalories;
     }
 
+    function clearEditState() {
+        UiControllerModule.clearInput();
+        document.querySelector(uiSelectors.updateBtn).style.display = 'none';
+        document.querySelector(uiSelectors.deleteBtn).style.display = 'none';
+        document.querySelector(uiSelectors.backBtn).style.display = 'none';
+        document.querySelector(uiSelectors.addBtn).style.display = 'inline';
+    }
+
+    function showEditState() {
+        document.querySelector(uiSelectors.updateBtn).style.display = 'inline';
+        document.querySelector(uiSelectors.deleteBtn).style.display = 'inline';
+        document.querySelector(uiSelectors.backBtn).style.display = 'inline';
+        document.querySelector(uiSelectors.addBtn).style.display = 'none';
+    }
+
+    function addItemToForm() {
+        document.getElementById(uiSelectors.itemNameInput).value = ItemControllerModule.getCurrentItem().name;
+        document.getElementById(uiSelectors.itemCaloriesInput).value = ItemControllerModule.getCurrentItem().calories;
+        UiControllerModule.showEditState();
+    }
+
     return {
         populateItemList,
         getSelectors,
@@ -65,6 +89,9 @@ const UiControllerModule = (function () {
         addListItem,
         clearInput,
         hideList,
-        showTotalCalories
+        showTotalCalories,
+        clearEditState,
+        addItemToForm,
+        showEditState
     }
 })();

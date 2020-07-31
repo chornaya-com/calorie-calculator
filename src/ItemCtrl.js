@@ -46,11 +46,32 @@ const ItemControllerModule = (function () {
         return data.totalCalories;
     }
 
+    function getItemById(id) {
+        let found = null;
+        data.items.forEach((item) => {
+            if (item.id === id) {
+                found = item;
+            }
+        });
+        return found;
+    }
+
+    function setCurrentItem(item) {
+        data.currentItem = item;
+    }
+
+    function getCurrentItem() {
+        return data.currentItem;
+    }
+
     return {
         logData,
         getItems,
         addItem,
-        getTotalCalories
+        getTotalCalories,
+        getItemById,
+        setCurrentItem,
+        getCurrentItem
     }
 
 })();
