@@ -1,4 +1,4 @@
-const AppModule = (function (ItemControllerModule, UiControllerModule) {
+const AppModule = (function (ItemControllerModule, StorageControllerModule, UiControllerModule) {
     function loadEventListeners() {
         const uiSelectors = UiControllerModule.getSelectors();
         document.querySelector(uiSelectors.addBtn).addEventListener('click', itemAddSubmit);
@@ -40,6 +40,9 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
         if (input.name !== '' && input.calories !== '') {
             const newItem = ItemControllerModule.addItem(input.name, input.calories);
             UiControllerModule.addListItem(newItem);
+
+            StorageControllerModule.storeItem(newItem);
+
             UiControllerModule.clearInput();
 
             const totalCalories = ItemControllerModule.getTotalCalories();
@@ -77,7 +80,6 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
 
         const currentItem = ItemControllerModule.getCurrentItem();
         ItemControllerModule.deleteItem(currentItem.id);
-
         UiControllerModule.deleteListItem(currentItem.id);
 
         updateState();
@@ -111,12 +113,12 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
 
     return {init};
 
-})(ItemControllerModule, UiControllerModule);
+})(ItemControllerModule, StorageControllerModule, UiControllerModule);
 
 AppModule.init();
 
 setTimeout(() => {
     document.querySelector('.loader').style.display = 'none';
     document.querySelector('.page').style.display = 'block';
-}, 2000);
+}, 500);
 

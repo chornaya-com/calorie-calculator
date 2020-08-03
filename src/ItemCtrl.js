@@ -8,7 +8,7 @@ const ItemControllerModule = (function () {
     }
 
     const data = {
-        items: [],
+        items: StorageControllerModule.getItemsFromStorage(),
         currentItem: null,
         totalCalories: 0
     }
