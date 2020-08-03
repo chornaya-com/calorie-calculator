@@ -7,6 +7,7 @@ const UiControllerModule = (function () {
         updateBtn: '.update-btn',
         deleteBtn: '.delete-btn',
         backBtn: '.back-btn',
+        clearBtn: '.clear-btn',
         itemNameInput: 'item-name',
         itemCaloriesInput: 'item-calories',
         totalCalories: '.total-calories'
@@ -98,6 +99,18 @@ const UiControllerModule = (function () {
         })
     }
 
+    function deleteListItem(id) {
+        const itemID = `#item-${id}`;
+        const item = document.querySelector(itemID);
+        item.remove();
+    }
+
+    function clearAllItemsFromUI() {
+        let listItems = document.querySelectorAll(uiSelectors.listItems);
+        listItems = Array.from(listItems);
+        listItems.forEach(item => item.remove());
+    }
+
     return {
         populateItemList,
         getSelectors,
@@ -109,6 +122,8 @@ const UiControllerModule = (function () {
         clearEditState,
         addItemToForm,
         showEditState,
-        updateListItem
+        updateListItem,
+        deleteListItem,
+        clearAllItemsFromUI
     }
 })();

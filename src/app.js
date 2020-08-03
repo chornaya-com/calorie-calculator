@@ -8,11 +8,22 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
         document.addEventListener('keypress', (event) => {
             if (event.keyCode === 13 || event.which === 13) {
                 event.preventDefault();
+
                 return false;
             }
         });
+
+        document.querySelector(uiSelectors.backBtn).addEventListener('click', UiControllerModule.clearEditState);
+        document.querySelector(uiSelectors.deleteBtn).addEventListener('click', itemDeleteSubmit);
+        document.querySelector(uiSelectors.clearBtn).addEventListener('click', clearAllItemsClick);
     }
 
+    function updateState() {
+        const totalCalories = ItemControllerModule.getTotalCalories();
+        UiControllerModule.showTotalCalories(totalCalories);
+
+        UiControllerModule.clearEditState();
+    }
 
     function itemAddSubmit(event) {
         event.preventDefault();
@@ -48,12 +59,30 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
         event.preventDefault();
         const input = UiControllerModule.getItemInput();
         const updatedItem = ItemControllerModule.updateItem(input.name, input.calories);
+
         UiControllerModule.updateListItem(updatedItem);
 
-        const totalCalories = ItemControllerModule.getTotalCalories();
-        UiControllerModule.showTotalCalories(totalCalories);
+        updateState();
+    }
 
-        UiControllerModule.clearEditState();
+    function itemDeleteSubmit(event) {
+        event.preventDefault();
+
+        const currentItem = ItemControllerModule.getCurrentItem();
+        ItemControllerModule.deleteItem(currentItem.id);
+
+        UiControllerModule.deleteListItem(currentItem.id);
+
+        updateState();
+    }
+
+    function clearAllItemsClick() {
+        ItemControllerModule.clearAllItems();
+        UiControllerModule.clearAllItemsFromUI();
+
+        updateState();
+
+        UiControllerModule.hideList();
     }
 
     function init() {

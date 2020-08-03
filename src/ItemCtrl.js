@@ -68,13 +68,23 @@ const ItemControllerModule = (function () {
         calories = parseInt(calories);
         let found = null;
         data.items.forEach((item) => {
-            if(item.id === data.currentItem.id) {
+            if (item.id === data.currentItem.id) {
                 item.name = name;
                 item.calories = calories;
                 found = item;
             }
         });
         return found;
+    }
+
+    function deleteItem(id) {
+        const ids = data.items.map(item => item.id);
+        const index = ids.indexOf(id);
+        data.items.splice(index, 1);
+    }
+
+    function clearAllItems() {
+        data.items = [];
     }
 
     return {
@@ -85,7 +95,9 @@ const ItemControllerModule = (function () {
         getItemById,
         setCurrentItem,
         getCurrentItem,
-        updateItem
+        updateItem,
+        deleteItem,
+        clearAllItems
     }
 
 })();
