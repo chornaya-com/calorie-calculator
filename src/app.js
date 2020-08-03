@@ -72,6 +72,8 @@ const AppModule = (function (ItemControllerModule, StorageControllerModule, UiCo
         const updatedItem = ItemControllerModule.updateItem(input.name, input.calories);
         UiControllerModule.updateListItem(updatedItem);
 
+        StorageControllerModule.updateItemStorage(updatedItem);
+
         updateState();
     }
 
@@ -82,12 +84,16 @@ const AppModule = (function (ItemControllerModule, StorageControllerModule, UiCo
         ItemControllerModule.deleteItem(currentItem.id);
         UiControllerModule.deleteListItem(currentItem.id);
 
+        StorageControllerModule.deleteItemFromStorage(currentItem.id);
+
         updateState();
     }
 
     function clearAllItemsClick() {
         ItemControllerModule.clearAllItems();
         UiControllerModule.clearAllItemsFromUI();
+
+        StorageControllerModule.clearItemsFromStorage();
 
         updateState();
 

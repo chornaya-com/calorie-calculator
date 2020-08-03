@@ -13,10 +13,6 @@ const ItemControllerModule = (function () {
         totalCalories: 0
     }
 
-    function logData() {
-        return data;
-    }
-
     function getItems() {
         return data.items;
     }
@@ -93,7 +89,6 @@ const ItemControllerModule = (function () {
     }
 
     return {
-        logData,
         isEditMode,
         getItems,
         addItem,
