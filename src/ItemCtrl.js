@@ -8,13 +8,9 @@ const ItemControllerModule = (function () {
     }
 
     const data = {
-        items: [],
+        items: StorageControllerModule.getItemsFromStorage(),
         currentItem: null,
         totalCalories: 0
-    }
-
-    function logData() {
-        return data;
     }
 
     function getItems() {
@@ -87,8 +83,13 @@ const ItemControllerModule = (function () {
         data.items = [];
     }
 
+    function isEditMode() {
+        console.log(!!data.currentItem, data.currentItem);
+        return !!data.currentItem;
+    }
+
     return {
-        logData,
+        isEditMode,
         getItems,
         addItem,
         getTotalCalories,
