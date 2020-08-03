@@ -46,11 +46,58 @@ const ItemControllerModule = (function () {
         return data.totalCalories;
     }
 
+    function getItemById(id) {
+        let found = null;
+        data.items.forEach((item) => {
+            if (item.id === id) {
+                found = item;
+            }
+        });
+        return found;
+    }
+
+    function setCurrentItem(item) {
+        data.currentItem = item;
+    }
+
+    function getCurrentItem() {
+        return data.currentItem;
+    }
+
+    function updateItem(name, calories) {
+        calories = parseInt(calories);
+        let found = null;
+        data.items.forEach((item) => {
+            if (item.id === data.currentItem.id) {
+                item.name = name;
+                item.calories = calories;
+                found = item;
+            }
+        });
+        return found;
+    }
+
+    function deleteItem(id) {
+        const ids = data.items.map(item => item.id);
+        const index = ids.indexOf(id);
+        data.items.splice(index, 1);
+    }
+
+    function clearAllItems() {
+        data.items = [];
+    }
+
     return {
         logData,
         getItems,
         addItem,
-        getTotalCalories
+        getTotalCalories,
+        getItemById,
+        setCurrentItem,
+        getCurrentItem,
+        updateItem,
+        deleteItem,
+        clearAllItems
     }
 
 })();
