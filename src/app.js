@@ -114,3 +114,9 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
 })(ItemControllerModule, UiControllerModule);
 
 AppModule.init();
+
+setTimeout(() => {
+    document.querySelector('.loader').style.display = 'none';
+    document.querySelector('.page').style.display = 'block';
+}, 2000);
+
