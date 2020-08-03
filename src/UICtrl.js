@@ -2,6 +2,7 @@ const UiControllerModule = (function () {
 
     const uiSelectors = {
         itemList: 'item-list',
+        listItems: '#item-list li',
         addBtn: '.add-btn',
         updateBtn: '.update-btn',
         deleteBtn: '.delete-btn',
@@ -82,6 +83,21 @@ const UiControllerModule = (function () {
         UiControllerModule.showEditState();
     }
 
+    function updateListItem(item) {
+        let listItems = document.querySelectorAll(uiSelectors.listItems);
+        listItems = Array.from(listItems);
+        listItems.forEach((listItem) => {
+            const itemID = listItem.getAttribute('id');
+
+            if (itemID === `item-${item.id}`) {
+                document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}:</strong> ${item.calories} kcal
+                        <a href="#" class="secondary-content">
+                            <i class="edit-item fa fa-pencil"></i>
+                        </a>`;
+            }
+        })
+    }
+
     return {
         populateItemList,
         getSelectors,
@@ -92,6 +108,7 @@ const UiControllerModule = (function () {
         showTotalCalories,
         clearEditState,
         addItemToForm,
-        showEditState
+        showEditState,
+        updateListItem
     }
 })();

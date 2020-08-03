@@ -2,8 +2,17 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
     function loadEventListeners() {
         const uiSelectors = UiControllerModule.getSelectors();
         document.querySelector(uiSelectors.addBtn).addEventListener('click', itemAddSubmit);
-        document.getElementById(uiSelectors.itemList).addEventListener('click', itemUpdateSubmit);
+        document.getElementById(uiSelectors.itemList).addEventListener('click', itemEditClick);
+        document.querySelector(uiSelectors.updateBtn).addEventListener('click', itemUpdateSubmit);
+
+        document.addEventListener('keypress', (event) => {
+            if (event.keyCode === 13 || event.which === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
     }
+
 
     function itemAddSubmit(event) {
         event.preventDefault();
@@ -20,7 +29,7 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
         }
     }
 
-    function itemUpdateSubmit(event) {
+    function itemEditClick(event) {
         event.preventDefault();
 
         if (event.target.classList.contains('edit-item')) {
@@ -33,6 +42,18 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
 
             UiControllerModule.addItemToForm();
         }
+    }
+
+    function itemUpdateSubmit(event) {
+        event.preventDefault();
+        const input = UiControllerModule.getItemInput();
+        const updatedItem = ItemControllerModule.updateItem(input.name, input.calories);
+        UiControllerModule.updateListItem(updatedItem);
+
+        const totalCalories = ItemControllerModule.getTotalCalories();
+        UiControllerModule.showTotalCalories(totalCalories);
+
+        UiControllerModule.clearEditState();
     }
 
     function init() {
