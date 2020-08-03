@@ -87,8 +87,14 @@ const ItemControllerModule = (function () {
         data.items = [];
     }
 
+    function isEditMode() {
+        console.log(!!data.currentItem, data.currentItem);
+        return !!data.currentItem;
+    }
+
     return {
         logData,
+        isEditMode,
         getItems,
         addItem,
         getTotalCalories,

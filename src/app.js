@@ -9,17 +9,24 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
             if (event.keyCode === 13 || event.which === 13) {
                 event.preventDefault();
 
+                if (ItemControllerModule.isEditMode()) {
+                    itemUpdateSubmit(event);
+                } else {
+                    itemAddSubmit(event);
+                }
+
                 return false;
             }
         });
 
-        document.querySelector(uiSelectors.backBtn).addEventListener('click', UiControllerModule.clearEditState);
+        document.querySelector(uiSelectors.backBtn).addEventListener('click', updateState);
         document.querySelector(uiSelectors.deleteBtn).addEventListener('click', itemDeleteSubmit);
         document.querySelector(uiSelectors.clearBtn).addEventListener('click', clearAllItemsClick);
     }
 
     function updateState() {
         const totalCalories = ItemControllerModule.getTotalCalories();
+        ItemControllerModule.setCurrentItem(null);
         UiControllerModule.showTotalCalories(totalCalories);
 
         UiControllerModule.clearEditState();
@@ -57,9 +64,9 @@ const AppModule = (function (ItemControllerModule, UiControllerModule) {
 
     function itemUpdateSubmit(event) {
         event.preventDefault();
+
         const input = UiControllerModule.getItemInput();
         const updatedItem = ItemControllerModule.updateItem(input.name, input.calories);
-
         UiControllerModule.updateListItem(updatedItem);
 
         updateState();
